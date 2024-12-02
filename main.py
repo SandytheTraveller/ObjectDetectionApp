@@ -25,6 +25,7 @@ cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
 # Full HD: 1920 x 1080
 
+button_person = False
 
 def click_button(event, x, y, flags, params):
     # flag which tells if the button is activated
@@ -59,7 +60,7 @@ while True:
         class_name = classes[class_id]
 
         # the bounding box is appearing only for class Person
-        if class_name == 'person':
+        if class_name == 'person' and button_person:
             cv2.putText(frame, str(class_name), (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 1, (200, 0, 50), 2) # y-5, so that it's with the object but doesn't overlap with it
             # draw bounding boxes
             cv2.rectangle(frame, (x, y), (x + width, y + height), (200, 0, 50), 3) # where: frame; starting point; ending point; colour; thickness
