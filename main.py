@@ -59,26 +59,38 @@ while True:
         (x, y, width, height) = bbox # coordinates - parameters - of the bounding box
         class_name = classes[class_id]
 
-        # the bounding box is appearing only for class Person
         if class_name == 'person' and button_person:
             cv2.putText(frame, str(class_name), (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 1, (200, 0, 50), 2) # y-5, so that it's with the object but doesn't overlap with it
             # draw bounding boxes
             cv2.rectangle(frame, (x, y), (x + width, y + height), (200, 0, 50), 3) # where: frame; starting point; ending point; colour; thickness
 
+        if class_name == 'cell phone':
+            cv2.putText(frame, str(class_name), (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 1, (60, 0, 205),
+                            2)  # y-5, so that it's with the object but doesn't overlap with it
+            # draw bounding boxes
+            cv2.rectangle(frame, (x, y), (x + width, y + height), (200, 0, 50),
+                              3)  # where: frame; starting point; ending point; colour; thickness
+
     '''print("Class ids: ", class_ids)
     print("Scores: ", scores)
     print("BBoxes: ", bboxes)'''
     # --> Create Button
-    # cv2.rectangle(frame, (20, 20), (220, 70), (0, 200, 0), -1) # thickness -1: rectangle is completely filled with the colour
+    # thickness -1: rectangle is completely filled with the colour
+    # cv2.rectangle(frame, (20, 20), (220, 70), (0, 200, 0), -1)
     # we check if we clicked the button, i.e.e we check the coordinates of the click
     polygon = np.array([[(20, 20), (220, 20), (220, 70), (20, 70)]])
     cv2.fillPoly(frame, polygon, (0, 200, 0))
     cv2.putText(frame, "Person", (35, 60), cv2.FONT_HERSHEY_PLAIN, 3, (255, 255, 255), 3)
 
-
     # show the frame
     cv2.imshow("Frame", frame)
+
     # wait until the key is pressed to keep the frame open until told otherwise
     # we can't have 0 here -> this will mean that the program will change frames only
     # if the key was pressed
-    cv2.waitKey(1)
+    key = cv2.waitKey(1)
+    if key == 27: # 27 is Esc
+        break
+
+cap.release() # release the camera
+cv2.destroyAllWindows()
