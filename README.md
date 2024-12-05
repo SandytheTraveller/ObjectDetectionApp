@@ -1,4 +1,4 @@
-# Object Detection on the Camera Application
+# Face Detection using Webcamera and openCV Application
 To Do:
 - Proper GUI (using PyQT, for instance)
 - Anomaly Detection
